@@ -2,6 +2,33 @@
 An automated RFID-based physical security system engineered with Arduino UNO. Features a MFRC522 sensing interface for UID-validated entry and a servo-actuated locking mechanism for hands-free access control
 #  RFID Smart Access Control System
 
+________________________________________________
+      |                                                |
+      |          Arduino RFID Access Control           |
+      |________________________________________________|
+               |                                |
+      [ RFID SCANNER ]                  [ SERVO MOTOR ]
+      |    (MFRC522)   |                  |  (Lock Mech)  |
+      |   __________   |                  |      ____     |
+      |  |  ( (●) ) |  |       ____       |     /    \    |
+      |  |   SCAN   |  |------|    |------|    | STOP |   |
+      |  |   HERE   |  |      |UNO |      |     \____/    |
+      |  |__________|  |      |____|      |      _||_     |
+      |________________|        ||        |_____|____|____|
+                                ||
+                        [ BUZZER / LEDS ]
+                         (Status Indicators)
+
+          Key:   [*] Authorized Tag -> Servo Rotates (Open)
+                 [!] Unauthorized   -> Buzzer Alarms (Locked)
+
+
+                 
+
+
+
+
+
 ##  Project Overview
 This project presents the design and implementation of a secure RFID-based access control system using Arduino UNO and MFRC522 RFID module.
 
