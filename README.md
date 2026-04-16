@@ -27,7 +27,7 @@ ________________________________________________
 
 
 
-
+![image alt](https://github.com/BenkhiraAhmedBaderEddine1/Arduino-RFID-Door-Lock-System/blob/main/Capture%20d%E2%80%99%C3%A9cran%202026-04-16%20200028---.png?raw=true)
 
 ##  Project Overview
 This project presents the design and implementation of a secure RFID-based access control system using Arduino UNO and MFRC522 RFID module.
@@ -95,7 +95,7 @@ The system grants access only to authorized RFID cards and controls a servo moto
 -----------------------------------ben khira ahmed bader eddine-------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
-
+![image alt](https://github.com/BenkhiraAhmedBaderEddine1/Arduino-RFID-Door-Lock-System/blob/main/ffqfq.png?raw=true)
 ##  Author
 Ahmed Bader Eddine  
 Bachelor Graduate  
