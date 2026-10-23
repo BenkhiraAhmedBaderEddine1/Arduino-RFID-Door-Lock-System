@@ -565,6 +565,10 @@ thub.com/BenkhiraAhmedBaderEddine1
     alt="Emerald and gold divider"
   />
 </div>
+
+
+### 5.2 Authentication Flowchart
+
 ```mermaid
 flowchart TD
     A([Power On]) --> B["Initialize Hardware"]
@@ -601,6 +605,7 @@ flowchart TD
     class I,J,L good
     class M,N bad
 ```
+
 ```
 ### 5.3 State Machine
 
