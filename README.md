@@ -73,6 +73,7 @@
 </div>
 
 ### 1.1 Introduction
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -82,6 +83,9 @@
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 Access control is an essential component of modern security systems used in residential buildings, laboratories, offices, industrial facilities, and restricted areas. Traditional mechanical keys provide a simple method of entry, but they can be lost, duplicated, or transferred between individuals without centralized authorization.
 
 The **RFID Smart Access Control System** introduces a contactless alternative based on Radio-Frequency Identification (RFID). The system enables a user to present an RFID card or tag to a reader installed near a door. A microcontroller reads the card identifier, evaluates it against a predefined authorization list, and determines whether access should be granted or denied.
@@ -91,6 +95,7 @@ An authorized card activates a servo motor that simulates the unlocking mechanis
 The prototype is implemented using an Arduino UNO, an MFRC522 RFID reader, an SG90 servo motor, and optional status indicators. It combines hardware interfacing, embedded C++ programming, digital communication, state-based control, and experimental validation in one integrated engineering project.
 
 ### 1.2 Project Objectives
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -100,6 +105,8 @@ The prototype is implemented using an Arduino UNO, an MFRC522 RFID reader, an SG
     alt="Emerald and gold divider"
   />
 </div>
+
+
 The primary objectives are:
 
 - Develop a contactless identification system using RFID technology.
@@ -111,6 +118,8 @@ The primary objectives are:
 - Establish a foundation for future enhancements involving secure credentials, event logging, and network connectivity.
 
 ### 1.3 Project Scope
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -120,6 +129,8 @@ The primary objectives are:
     alt="Emerald and gold divider"
   />
 </div>
+
+
 This implementation focuses on a low-cost, educational access-control prototype. The servo represents a small locking mechanism or model door rather than a full-size physical security lock.
 
 The baseline design operates locally without requiring an internet connection, cloud service, or external database.
@@ -143,7 +154,11 @@ The baseline design operates locally without requiring an internet connection, c
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 02 · SYSTEM ARCHITECTURE ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -153,7 +168,10 @@ The baseline design operates locally without requiring an internet connection, c
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ### 2.1 High-Level Architecture
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -163,6 +181,8 @@ The baseline design operates locally without requiring an internet connection, c
     alt="Emerald and gold divider"
   />
 </div>
+
+
 The system consists of four principal functional layers:
 
 1. **Identification Layer:** The RFID card communicates with the MFRC522 reader.
@@ -211,6 +231,7 @@ flowchart TD
 
 
 ### 2.2 Operating Principle
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -220,6 +241,8 @@ flowchart TD
     alt="Emerald and gold divider"
   />
 </div>
+
+
 The process begins when an RFID card enters the reader's operating field. The MFRC522 detects the card and obtains its identifier through the RFID protocol.
 
 The Arduino receives the identifier, compares it with the configured list of authorized UIDs, and selects the corresponding response.
@@ -231,6 +254,8 @@ If no match is found, the controller denies access and optionally activates a bu
 **Important:** The baseline implementation checks a card UID. It does not perform cryptographic card authentication, maintain a permanent audit trail, or guarantee protection against cloned cards.
 
 ---
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -249,6 +274,8 @@ If no match is found, the controller denies access and optionally activates a bu
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 03 · HARDWARE COMPONENTS ═══
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
@@ -259,7 +286,11 @@ If no match is found, the controller denies access and optionally activates a bu
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ### 3.1 Bill of Materials
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -269,6 +300,9 @@ If no match is found, the controller denies access and optionally activates a bu
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 | No. | Component | Quantity | Function |
 |:--:|---|:--:|---|
 | 1 | Arduino UNO R3 | 1 | Main microcontroller |
@@ -287,6 +321,9 @@ If no match is found, the controller denies access and optionally activates a bu
 The exact number of components depends on the selected configuration. LEDs and the buzzer are optional additions.
 
 ### 3.2 Required Software
+
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -296,6 +333,8 @@ The exact number of components depends on the selected configuration. LEDs and t
     alt="Emerald and gold divider"
   />
 </div>
+
+
 - Arduino IDE
 - Arduino AVR board support
 - `MFRC522` library
@@ -304,6 +343,8 @@ The exact number of components depends on the selected configuration. LEDs and t
 - USB serial monitor for diagnostics
 
 ### 3.3 Why These Components Were Selected
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -313,6 +354,8 @@ The exact number of components depends on the selected configuration. LEDs and t
     alt="Emerald and gold divider"
   />
 </div>
+
+
 **Arduino UNO:** Provides a straightforward development platform with digital I/O, SPI communication, and a large embedded-development ecosystem.
 
 **MFRC522:** Offers an affordable RFID reader interface suitable for educational prototypes using compatible 13.56 MHz cards and tags.
@@ -322,6 +365,9 @@ The exact number of components depends on the selected configuration. LEDs and t
 **Buzzer and LEDs:** Offer immediate feedback without requiring a display or network connection.
 
 ---
+
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -340,7 +386,11 @@ The exact number of components depends on the selected configuration. LEDs and t
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 04 · CIRCUIT DESIGN AND PIN MAPPING ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -360,6 +410,9 @@ The exact number of components depends on the selected configuration. LEDs and t
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 | MFRC522 Pin | Arduino UNO Pin | Purpose |
 |---|---|---|
 | SDA / SS | D10 | SPI chip select |
@@ -373,6 +426,8 @@ The exact number of components depends on the selected configuration. LEDs and t
 **Voltage warning:** The MFRC522 module is a 3.3 V device. Do not connect its supply pin to 5 V. Verify the electrical specifications of the particular module and use appropriate logic-level conversion where required.
 
 ### 4.2 Servo, LEDs, and Buzzer
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -382,6 +437,8 @@ The exact number of components depends on the selected configuration. LEDs and t
     alt="Emerald and gold divider"
   />
 </div>
+
+
 | Component | Arduino Pin | Connection |
 |---|---|---|
 | SG90 signal | D6 | PWM-capable digital pin |
@@ -398,6 +455,8 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
 
 
 ### 4.3 Electrical Design Considerations
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -407,6 +466,9 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 - Confirm the MFRC522 module's supply voltage before powering the circuit.
 - Keep signal and power wiring short during initial testing.
 - Avoid drawing excessive current from Arduino GPIO pins.
@@ -416,6 +478,8 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
 - Test the circuit with the servo disconnected before integrating the actuator.
 
 ---
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -434,7 +498,12 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 ## ═══ 05 · CONTROL ALGORITHM ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -454,6 +523,9 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
     alt="Emerald and gold divider"
   />
 </div>
+
+
+ 
 The controller follows a deterministic decision process:
 
 1. Initialize the serial interface, SPI bus, RFID reader, servo, and output indicators.
