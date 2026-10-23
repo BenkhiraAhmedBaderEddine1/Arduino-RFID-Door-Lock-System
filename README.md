@@ -781,42 +781,11 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 
 ---
 
-## ═══ 13 · REPOSITORY STRUCTURE ═══
 
-A recommended project layout is:
 
-```text
-RFID-Smart-Access-Control/
-│
-├── README.md
-│
-├── src/
-│   └── rfid_access_control.ino
-│
-├── docs/
-│   ├── system_architecture.md
-│   ├── test_plan.md
-│   └── security_analysis.md
-│
-├── hardware/
-│   ├── wiring_diagram.png
-│   └── bill_of_materials.csv
-│
-├── images/
-│   ├── prototype_overview.jpg
-│   ├── rfid_reader.jpg
-│   └── door_mechanism.jpg
-│
-└── LICENSE
-```
+## ═══ 13 · ACADEMIC CONTRIBUTION ═══
 
-Only include files and photographs that actually exist in the repository. Replace the example structure with the organization used by your implementation.
-
----
-
-## ═══ 14 · ACADEMIC CONTRIBUTION ═══
-
-### 14.1 Engineering Concepts Demonstrated
+### 13.1 Engineering Concepts Demonstrated
 
 This project demonstrates the integration of several engineering disciplines:
 
@@ -829,7 +798,7 @@ This project demonstrates the integration of several engineering disciplines:
 - Functional test design and quantitative performance evaluation.
 - Security threat modeling and engineering risk analysis.
 
-### 14.2 Suggested Master-Level Extensions
+### 13.2 Suggested Master-Level Extensions
 
 To elevate the project beyond a basic demonstration, the next stage should include a documented experimental study rather than additional features alone.
 
@@ -846,7 +815,7 @@ A strong academic submission should include a circuit diagram, implementation de
 
 ---
 
-## ═══ 15 · CONCLUSION ═══
+## ═══ 14 · CONCLUSION ═══
 
 The RFID Smart Access Control System provides a practical foundation for studying contactless identification and embedded access-control logic. By combining an MFRC522 reader, Arduino UNO, RFID credentials, and a servo-actuated model door, the prototype demonstrates how a physical input can trigger a verified software decision and a corresponding electromechanical response.
 
