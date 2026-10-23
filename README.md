@@ -27,7 +27,7 @@
 
 <div align="center">
 
-<img src="./assets/rfid-door-demo.svg" width="100%" alt="Animated RFID card access demonstration"/>
+<img src="./rfid-door-demo.svg" width="100%" alt="Animated RFID card access demonstration"/>
 
 </div>
 
