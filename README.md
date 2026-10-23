@@ -606,7 +606,7 @@ flowchart TD
     class M,N bad
 ```
 
-```
+
 ### 5.3 State Machine
 
 The system can be represented by five logical states:
