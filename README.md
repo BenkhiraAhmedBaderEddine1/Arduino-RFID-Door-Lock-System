@@ -31,6 +31,16 @@
 
 </div>
 
+
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 01 · PROJECT OVERVIEW ═══
 
 ### 1.1 Introduction
