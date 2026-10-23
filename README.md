@@ -27,6 +27,20 @@
 
 </div>
 
+
+<div align="center">
+
+# 🔐 RFID SMART ACCESS CONTROL SYSTEM
+
+### Real-World Access Control Demonstration
+
+<img src="https://placehold.co/1000x560/101820/F5F5F5?text=Replace+with+your+RFID+door+demo+GIF" alt="RFID door access demonstration" width="100%"/>
+
+**A person presents an RFID card to a reader beside a locked door.  
+The system verifies the card, and the door unlocks when access is authorized.**
+
+</div>
+
 ## ◈ 01 — PROJECT OVERVIEW
 
 The **RFID Smart Access Control System** is an embedded security prototype designed to demonstrate contactless identification and automated access control using an Arduino UNO and an MFRC522 RFID reader.
