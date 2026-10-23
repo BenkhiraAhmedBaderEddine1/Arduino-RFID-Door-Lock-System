@@ -975,6 +975,8 @@ Repeat tests with different cards, repeated presentations, power cycles, and dif
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ```mermaid
 flowchart TD
     A["Define Requirements"] --> B["Select Hardware"]
@@ -1021,6 +1023,7 @@ classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
   />
 </div>
 ## ═══ 08 · TESTING AND VALIDATION ═══
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1030,7 +1033,9 @@ classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
     alt="Emerald and gold divider"
   />
 </div>
+
 ### 8.1 Functional Test Plan
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1040,6 +1045,10 @@ classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
+
 | Test ID | Test Scenario | Expected Result |
 |---|---|---|
 | T01 | Power on the system | Reader initializes; servo starts locked |
@@ -1056,6 +1065,8 @@ classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
 The expected results describe test objectives, not measured outcomes. Mark each test as passed or failed only after performing it on the actual hardware.
 
 ### 8.2 Performance Metrics
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1065,6 +1076,9 @@ The expected results describe test objectives, not measured outcomes. Mark each 
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 A master-level evaluation should measure the following:
 
 - **Authentication response time:** Time between presenting a card and receiving a decision.
@@ -1101,6 +1115,8 @@ Useful metrics can be calculated as follows:
 Report the test count, environment, card types, and measured values alongside each percentage. A small prototype test is not sufficient to establish the security of a deployed access-control system.
 
 ### 8.3 Experimental Results Template
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1110,7 +1126,12 @@ Report the test count, environment, card types, and measured values alongside ea
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
+
 Complete this table after testing the physical prototype.
+
 
 | Parameter | Measurement |
 |---|---|
@@ -1126,6 +1147,8 @@ Complete this table after testing the physical prototype.
 
 **Engineering note:** Do not report simulated, estimated, or expected values as experimental measurements.
 
+
+
 ---
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
@@ -1145,7 +1168,11 @@ Complete this table after testing the physical prototype.
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 09 · SECURITY ANALYSIS ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1155,7 +1182,11 @@ Complete this table after testing the physical prototype.
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ### 9.1 Threat Model
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1165,7 +1196,11 @@ Complete this table after testing the physical prototype.
     alt="Emerald and gold divider"
   />
 </div>
+
+
 An access-control prototype should be evaluated against several possible failure and attack scenarios.
+
+
 
 | Threat | Baseline Exposure | Recommended Mitigation |
 |---|---|---|
@@ -1179,6 +1214,8 @@ An access-control prototype should be evaluated against several possible failure
 | Credential-list exposure | Firmware may reveal authorized UIDs | Use protected credential storage and stronger authentication |
 
 ### 9.2 Security Limitations
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1188,6 +1225,8 @@ An access-control prototype should be evaluated against several possible failure
     alt="Emerald and gold divider"
   />
 </div>
+
+
 The baseline project uses an allowlist of card UIDs stored in firmware. It does not prove the identity of the cardholder and does not provide strong cryptographic authentication.
 
 A UID is an identifier, not a secret. Depending on the credential, it may be possible to reproduce or emulate it. The MFRC522 and compatible card combination should therefore be treated as an educational RFID platform, not as a complete security boundary.
@@ -1195,6 +1234,8 @@ A UID is an identifier, not a secret. Depending on the credential, it may be pos
 A production design would require a security assessment, suitable cryptographic credentials, protected key management, secure credential enrollment and revocation, fault monitoring, and a mechanically appropriate lock.
 
 ### 9.3 Safety and Fail-Secure Considerations
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1204,11 +1245,15 @@ A production design would require a security assessment, suitable cryptographic 
     alt="Emerald and gold divider"
   />
 </div>
+
+
 The servo's last commanded angle does not prove that a physical door is locked. A blocked, disconnected, or underpowered servo may fail to reach its target.
 
 For a real installation, the locking mechanism, power-loss behavior, emergency egress, fire regulations, and applicable building requirements must be evaluated independently.
 
 ---
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1227,7 +1272,11 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 10 · ADVANTAGES AND LIMITATIONS ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1247,6 +1296,8 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
 - **Contactless interaction:** Users do not need to insert a mechanical key.
 - **Low implementation cost:** The prototype uses widely available educational components.
 - **Modular architecture:** The reader, controller, indicators, and actuator can be tested separately.
@@ -1256,6 +1307,8 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - **Demonstrable operation:** The card scan, decision, and servo response are easy to observe during a presentation.
 
 ### 10.2 Limitations
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1265,6 +1318,8 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
 - **Weak baseline authentication:** UID comparison alone is not adequate for high-security applications.
 - **Limited credential management:** The demonstration uses a UID configured in firmware.
 - **No built-in audit database:** The baseline sketch does not retain a permanent access history.
@@ -1275,6 +1330,8 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - **Hardware dependence:** Reader performance and compatibility vary with cards, modules, wiring, and environmental conditions.
 
 ### 10.3 Comparative Assessment
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1284,6 +1341,10 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
+
 | Feature | Baseline Prototype | Enhanced Design |
 |---|---|---|
 | Identification | RFID UID | Cryptographic credential authentication |
@@ -1335,6 +1396,8 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - Conduct documented security and reliability testing.
 
 ---
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1353,7 +1416,11 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 12 · TROUBLESHOOTING GUIDE ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1363,6 +1430,9 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 | Problem | Possible Cause | Recommended Check |
 |---|---|---|
 | RFID reader not detected | Incorrect wiring or supply | Verify 3.3 V, GND, SPI pins, and reset connection |
@@ -1377,6 +1447,7 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 
 ---
 
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1395,8 +1466,11 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
 
 ## ═══ 13 · ACADEMIC CONTRIBUTION ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1406,7 +1480,11 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ### 13.1 Engineering Concepts Demonstrated
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1416,6 +1494,9 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
     alt="Emerald and gold divider"
   />
 </div>
+
+
+
 This project demonstrates the integration of several engineering disciplines:
 
 - Embedded-system design and microcontroller programming.
@@ -1428,6 +1509,8 @@ This project demonstrates the integration of several engineering disciplines:
 - Security threat modeling and engineering risk analysis.
 
 ### 13.2 Suggested Master-Level Extensions
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1437,6 +1520,8 @@ This project demonstrates the integration of several engineering disciplines:
     alt="Emerald and gold divider"
   />
 </div>
+
+
 To elevate the project beyond a basic demonstration, the next stage should include a documented experimental study rather than additional features alone.
 
 Recommended research questions include:
@@ -1451,6 +1536,8 @@ Recommended research questions include:
 A strong academic submission should include a circuit diagram, implementation details, a justified design methodology, measured experimental results, error analysis, security considerations, and a discussion of limitations.
 
 ---
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -1469,7 +1556,11 @@ A strong academic submission should include a circuit diagram, implementation de
     alt="Emerald and gold divider"
   />
 </div>
+
+
 ## ═══ 14 · CONCLUSION ═══
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
