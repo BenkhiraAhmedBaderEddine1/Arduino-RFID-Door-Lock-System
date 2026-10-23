@@ -113,63 +113,120 @@ flowchart TD
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
 
-##  Hardware Components
-- Arduino UNO
-- MFRC522 RFID Reader (SPI)
-- SG90 Servo Motor
-- Buzzer (optional)
-- RFID Cards / Tags
-- Breadboard & Jumper Wires
 
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
+### 2.2 Operating Principle
 
-##  System Architecture
+The process begins when an RFID card enters the reader's operating field. The MFRC522 detects the card and obtains its identifier through the RFID protocol.
 
-1. RFID card is scanned
-2. Arduino reads UID
-3. UID is compared with authorized list
-4. If matched → Door unlocks
-5. If not matched → Access denied alert
+The Arduino receives the identifier, compares it with the configured list of authorized UIDs, and selects the corresponding response.
 
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
+If the identifier matches an entry in the list, the controller activates the servo to simulate unlocking. After a configurable interval, the servo returns to its locked position.
 
-##  Features
-- Multi-card authentication
-- Automatic re-lock after timeout
-- Unauthorized access detection
-- Modular structured code
-- Expandable system design
+If no match is found, the controller denies access and optionally activates a buzzer.
 
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
+**Important:** The baseline implementation checks a card UID. It does not perform cryptographic card authentication, maintain a permanent audit trail, or guarantee protection against cloned cards.
 
-##  Technologies Used
-- C++ (Arduino IDE)
-- Embedded Systems Programming
-- SPI Communication Protocol
-- Servo Motor Control
+---
 
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
------------------------------------ben khira ahmed bader eddine-------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
+## ═══ 03 · HARDWARE COMPONENTS ═══
 
-##  Future Improvements
-- EEPROM-based dynamic card registration
-- LCD display integration
-- IoT remote monitoring (ESP32)
-- Access logging system
+### 3.1 Bill of Materials
 
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
------------------------------------ben khira ahmed bader eddine-------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
-![image alt](https://github.com/BenkhiraAhmedBaderEddine1/Arduino-RFID-Door-Lock-System/blob/main/ffqfq.png?raw=true)
-##  Author
-Ahmed Bader Eddine  
-Bachelor Graduate  
-GitHub: https://github.com/BenkhiraAhmedBaderEddine1
+| No. | Component | Quantity | Function |
+|:--:|---|:--:|---|
+| 1 | Arduino UNO R3 | 1 | Main microcontroller |
+| 2 | MFRC522 RFID reader | 1 | Reads RFID cards and tags |
+| 3 | Compatible RFID card or tag | 1+ | Contactless credential |
+| 4 | SG90 servo motor | 1 | Simulates the locking mechanism |
+| 5 | Active buzzer | 1 | Optional denial notification |
+| 6 | Red LED | 1 | Optional access-denied indicator |
+| 7 | Green LED | 1 | Optional access-granted indicator |
+| 8 | 220–330 Ω LED resistors | 2 | Limit LED current |
+| 9 | Breadboard | 1 | Prototype assembly |
+| 10 | Jumper wires | As needed | Electrical connections |
+| 11 | USB cable | 1 | Programming and power |
+| 12 | External regulated supply | As required | Servo power when needed |
+
+The exact number of components depends on the selected configuration. LEDs and the buzzer are optional additions.
+
+### 3.2 Required Software
+
+- Arduino IDE
+- Arduino AVR board support
+- `MFRC522` library
+- `SPI` library
+- `Servo` library
+- USB serial monitor for diagnostics
+
+### 3.3 Why These Components Were Selected
+
+**Arduino UNO:** Provides a straightforward development platform with digital I/O, SPI communication, and a large embedded-development ecosystem.
+
+**MFRC522:** Offers an affordable RFID reader interface suitable for educational prototypes using compatible 13.56 MHz cards and tags.
+
+**SG90 Servo:** Provides simple angular positioning for a miniature door or locking model.
+
+**Buzzer and LEDs:** Offer immediate feedback without requiring a display or network connection.
+
+---
+
+## ═══ 04 · CIRCUIT DESIGN AND PIN MAPPING ═══
+
+### 4.1 MFRC522 to Arduino UNO
+
+| MFRC522 Pin | Arduino UNO Pin | Purpose |
+|---|---|---|
+| SDA / SS | D10 | SPI chip select |
+| SCK | D13 | SPI clock |
+| MOSI | D11 | SPI data from Arduino to reader |
+| MISO | D12 | SPI data from reader to Arduino |
+| RST | D9 | Reader reset |
+| GND | GND | Common ground |
+| 3.3V | 3.3V | Reader supply |
+
+**Voltage warning:** The MFRC522 module is a 3.3 V device. Do not connect its supply pin to 5 V. Verify the electrical specifications of the particular module and use appropriate logic-level conversion where required.
+
+### 4.2 Servo, LEDs, and Buzzer
+
+| Component | Arduino Pin | Connection |
+|---|---|---|
+| SG90 signal | D6 | PWM-capable digital pin |
+| Green LED | D4 | LED through a current-limiting resistor |
+| Red LED | D5 | LED through a current-limiting resistor |
+| Buzzer signal | D3 | Compatible active buzzer input |
+| Servo power | Appropriate regulated supply | According to servo specifications |
+| Servo ground | GND | Common reference with Arduino |
+
+The servo power arrangement must be appropriate for its current demand. An external regulated supply may be necessary. Connect the external supply ground to the Arduino ground.
+
+Do not assume that the Arduino's onboard regulator or USB connection can safely supply every servo load.
+
+### 4.3 Electrical Design Considerations
+
+- Confirm the MFRC522 module's supply voltage before powering the circuit.
+- Keep signal and power wiring short during initial testing.
+- Avoid drawing excessive current from Arduino GPIO pins.
+- Use a suitable resistor for each LED.
+- Check servo current demand, especially during startup or mechanical resistance.
+- Keep the RFID reader away from large metal surfaces when possible.
+- Test the circuit with the servo disconnected before integrating the actuator.
+
+---
+
+## ═══ 05 · CONTROL ALGORITHM ═══
+
+### 5.1 Authentication Logic
+
+The controller follows a deterministic decision process:
+
+1. Initialize the serial interface, SPI bus, RFID reader, servo, and output indicators.
+2. Set the servo to its configured locked position.
+3. Wait for a compatible RFID card or tag.
+4. Read the card UID.
+5. Compare the UID against the authorized credential list.
+6. If a match is found, activate the grant indication and unlock the model door.
+7. Wait for the configured access interval.
+8. Return the servo to the locked position.
+9. If the UID is not authorized, keep the door locked and activate the denial indication.
+10. Stop processing the current card until it has been removed, then continue monitoring.
+thub.com/BenkhiraAhmedBaderEddine1
