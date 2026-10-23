@@ -41,10 +41,47 @@
     alt="Emerald and gold divider"
   />
 </div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+
 ## ═══ 01 · PROJECT OVERVIEW ═══
 
-### 1.1 Introduction
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+
+### 1.1 Introduction
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 Access control is an essential component of modern security systems used in residential buildings, laboratories, offices, industrial facilities, and restricted areas. Traditional mechanical keys provide a simple method of entry, but they can be lost, duplicated, or transferred between individuals without centralized authorization.
 
 The **RFID Smart Access Control System** introduces a contactless alternative based on Radio-Frequency Identification (RFID). The system enables a user to present an RFID card or tag to a reader installed near a door. A microcontroller reads the card identifier, evaluates it against a predefined authorization list, and determines whether access should be granted or denied.
@@ -54,7 +91,15 @@ An authorized card activates a servo motor that simulates the unlocking mechanis
 The prototype is implemented using an Arduino UNO, an MFRC522 RFID reader, an SG90 servo motor, and optional status indicators. It combines hardware interfacing, embedded C++ programming, digital communication, state-based control, and experimental validation in one integrated engineering project.
 
 ### 1.2 Project Objectives
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The primary objectives are:
 
 - Develop a contactless identification system using RFID technology.
@@ -66,17 +111,58 @@ The primary objectives are:
 - Establish a foundation for future enhancements involving secure credentials, event logging, and network connectivity.
 
 ### 1.3 Project Scope
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 This implementation focuses on a low-cost, educational access-control prototype. The servo represents a small locking mechanism or model door rather than a full-size physical security lock.
 
 The baseline design operates locally without requiring an internet connection, cloud service, or external database.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 02 · SYSTEM ARCHITECTURE ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 2.1 High-Level Architecture
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The system consists of four principal functional layers:
 
 1. **Identification Layer:** The RFID card communicates with the MFRC522 reader.
@@ -125,7 +211,15 @@ flowchart TD
 
 
 ### 2.2 Operating Principle
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The process begins when an RFID card enters the reader's operating field. The MFRC522 detects the card and obtains its identifier through the RFID protocol.
 
 The Arduino receives the identifier, compares it with the configured list of authorized UIDs, and selects the corresponding response.
@@ -137,11 +231,44 @@ If no match is found, the controller denies access and optionally activates a bu
 **Important:** The baseline implementation checks a card UID. It does not perform cryptographic card authentication, maintain a permanent audit trail, or guarantee protection against cloned cards.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 03 · HARDWARE COMPONENTS ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 3.1 Bill of Materials
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | No. | Component | Quantity | Function |
 |:--:|---|:--:|---|
 | 1 | Arduino UNO R3 | 1 | Main microcontroller |
@@ -160,7 +287,15 @@ If no match is found, the controller denies access and optionally activates a bu
 The exact number of components depends on the selected configuration. LEDs and the buzzer are optional additions.
 
 ### 3.2 Required Software
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 - Arduino IDE
 - Arduino AVR board support
 - `MFRC522` library
@@ -169,7 +304,15 @@ The exact number of components depends on the selected configuration. LEDs and t
 - USB serial monitor for diagnostics
 
 ### 3.3 Why These Components Were Selected
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 **Arduino UNO:** Provides a straightforward development platform with digital I/O, SPI communication, and a large embedded-development ecosystem.
 
 **MFRC522:** Offers an affordable RFID reader interface suitable for educational prototypes using compatible 13.56 MHz cards and tags.
@@ -179,11 +322,44 @@ The exact number of components depends on the selected configuration. LEDs and t
 **Buzzer and LEDs:** Offer immediate feedback without requiring a display or network connection.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 04 · CIRCUIT DESIGN AND PIN MAPPING ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 4.1 MFRC522 to Arduino UNO
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | MFRC522 Pin | Arduino UNO Pin | Purpose |
 |---|---|---|
 | SDA / SS | D10 | SPI chip select |
@@ -197,7 +373,15 @@ The exact number of components depends on the selected configuration. LEDs and t
 **Voltage warning:** The MFRC522 module is a 3.3 V device. Do not connect its supply pin to 5 V. Verify the electrical specifications of the particular module and use appropriate logic-level conversion where required.
 
 ### 4.2 Servo, LEDs, and Buzzer
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | Component | Arduino Pin | Connection |
 |---|---|---|
 | SG90 signal | D6 | PWM-capable digital pin |
@@ -210,9 +394,19 @@ The exact number of components depends on the selected configuration. LEDs and t
 The servo power arrangement must be appropriate for its current demand. An external regulated supply may be necessary. Connect the external supply ground to the Arduino ground.
 
 Do not assume that the Arduino's onboard regulator or USB connection can safely supply every servo load.
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
 
 ### 4.3 Electrical Design Considerations
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 - Confirm the MFRC522 module's supply voltage before powering the circuit.
 - Keep signal and power wiring short during initial testing.
 - Avoid drawing excessive current from Arduino GPIO pins.
@@ -222,11 +416,44 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
 - Test the circuit with the servo disconnected before integrating the actuator.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 05 · CONTROL ALGORITHM ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 5.1 Authentication Logic
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The controller follows a deterministic decision process:
 
 1. Initialize the serial interface, SPI bus, RFID reader, servo, and output indicators.
@@ -240,10 +467,26 @@ The controller follows a deterministic decision process:
 9. If the UID is not authorized, keep the door locked and activate the denial indication.
 10. Stop processing the current card until it has been removed, then continue monitoring.
 thub.com/BenkhiraAhmedBaderEddine1
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 
 ### 5.2 Authentication Flowchart
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ```mermaid
 flowchart TD
     A([Power On]) --> B["Initialize Hardware"]
@@ -307,11 +550,44 @@ stateDiagram-v2
 This state model separates identification, decision-making, and actuation. It also provides a foundation for adding timeouts, fault detection, and event logging.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 06 · ARDUINO IMPLEMENTATION ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 6.1 Complete Baseline Sketch
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The following sketch implements the core prototype. Replace the example UID with the UID of a card you control, obtained from the Serial Monitor.
 
 Install the `MFRC522` library before compiling.
@@ -493,6 +769,15 @@ void loop() {
 ```
 
 ### 6.2 Important Code Configuration
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 
 **Authorized UID:** The sketch contains a demonstration UID, `DE AD BE EF`. This is a placeholder, not a real credential. Use the UID printed by your reader and confirm its byte length.
 
@@ -505,6 +790,15 @@ void loop() {
 **Security limitation:** UID matching is suitable for demonstrating the workflow, but it is not strong authentication. Some RFID credentials can be copied or emulated. Do not use this implementation as the sole security mechanism for a real building.
 
 ### 6.3 Suggested Serial Output
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 
 An example of the expected diagnostic output is:
 
@@ -527,11 +821,43 @@ Door remains locked.
 The UID values above are illustrative. Actual identifiers depend on the cards used.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div><!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 07 · DEVELOPMENT WORKFLOW ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 7.1 Step-by-Step Construction
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 **Phase 1 — Hardware Preparation**
 
 Collect the Arduino UNO, MFRC522 module, RFID cards, servo motor, breadboard, jumper wires, and optional indicators. Inspect the components and verify the reader's voltage requirements.
@@ -557,11 +883,20 @@ Integrate the UID comparison function and test both authorized and unauthorized 
 Add the LEDs and optional buzzer. Confirm that the indications match the system's decision.
 
 **Phase 7 — Integrated Validation**
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
 Repeat tests with different cards, repeated presentations, power cycles, and different mechanical positions. Document the observed behavior and any failures.
 
 ### 7.2 Recommended Build Sequence
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ```mermaid
 flowchart TD
     A["Define Requirements"] --> B["Select Hardware"]
@@ -588,11 +923,44 @@ flowchart TD
 ```
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 08 · TESTING AND VALIDATION ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 8.1 Functional Test Plan
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | Test ID | Test Scenario | Expected Result |
 |---|---|---|
 | T01 | Power on the system | Reader initializes; servo starts locked |
@@ -609,7 +977,15 @@ flowchart TD
 The expected results describe test objectives, not measured outcomes. Mark each test as passed or failed only after performing it on the actual hardware.
 
 ### 8.2 Performance Metrics
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 A master-level evaluation should measure the following:
 
 - **Authentication response time:** Time between presenting a card and receiving a decision.
@@ -646,7 +1022,15 @@ Useful metrics can be calculated as follows:
 Report the test count, environment, card types, and measured values alongside each percentage. A small prototype test is not sufficient to establish the security of a deployed access-control system.
 
 ### 8.3 Experimental Results Template
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 Complete this table after testing the physical prototype.
 
 | Parameter | Measurement |
@@ -664,11 +1048,44 @@ Complete this table after testing the physical prototype.
 **Engineering note:** Do not report simulated, estimated, or expected values as experimental measurements.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 09 · SECURITY ANALYSIS ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 9.1 Threat Model
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 An access-control prototype should be evaluated against several possible failure and attack scenarios.
 
 | Threat | Baseline Exposure | Recommended Mitigation |
@@ -683,7 +1100,15 @@ An access-control prototype should be evaluated against several possible failure
 | Credential-list exposure | Firmware may reveal authorized UIDs | Use protected credential storage and stronger authentication |
 
 ### 9.2 Security Limitations
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The baseline project uses an allowlist of card UIDs stored in firmware. It does not prove the identity of the cardholder and does not provide strong cryptographic authentication.
 
 A UID is an identifier, not a secret. Depending on the credential, it may be possible to reproduce or emulate it. The MFRC522 and compatible card combination should therefore be treated as an educational RFID platform, not as a complete security boundary.
@@ -691,17 +1116,58 @@ A UID is an identifier, not a secret. Depending on the credential, it may be pos
 A production design would require a security assessment, suitable cryptographic credentials, protected key management, secure credential enrollment and revocation, fault monitoring, and a mechanically appropriate lock.
 
 ### 9.3 Safety and Fail-Secure Considerations
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 The servo's last commanded angle does not prove that a physical door is locked. A blocked, disconnected, or underpowered servo may fail to reach its target.
 
 For a real installation, the locking mechanism, power-loss behavior, emergency egress, fire regulations, and applicable building requirements must be evaluated independently.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 10 · ADVANTAGES AND LIMITATIONS ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 10.1 Advantages
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 - **Contactless interaction:** Users do not need to insert a mechanical key.
 - **Low implementation cost:** The prototype uses widely available educational components.
 - **Modular architecture:** The reader, controller, indicators, and actuator can be tested separately.
@@ -711,7 +1177,15 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - **Demonstrable operation:** The card scan, decision, and servo response are easy to observe during a presentation.
 
 ### 10.2 Limitations
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 - **Weak baseline authentication:** UID comparison alone is not adequate for high-security applications.
 - **Limited credential management:** The demonstration uses a UID configured in firmware.
 - **No built-in audit database:** The baseline sketch does not retain a permanent access history.
@@ -722,7 +1196,15 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - **Hardware dependence:** Reader performance and compatibility vary with cards, modules, wiring, and environmental conditions.
 
 ### 10.3 Comparative Assessment
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | Feature | Baseline Prototype | Enhanced Design |
 |---|---|---|
 | Identification | RFID UID | Cryptographic credential authentication |
@@ -774,9 +1256,34 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 - Conduct documented security and reliability testing.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 12 · TROUBLESHOOTING GUIDE ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 | Problem | Possible Cause | Recommended Check |
 |---|---|---|
 | RFID reader not detected | Incorrect wiring or supply | Verify 3.3 V, GND, SPI pins, and reset connection |
@@ -791,12 +1298,45 @@ For a real installation, the locking mechanism, power-loss behavior, emergency e
 
 ---
 
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 
 ## ═══ 13 · ACADEMIC CONTRIBUTION ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ### 13.1 Engineering Concepts Demonstrated
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 This project demonstrates the integration of several engineering disciplines:
 
 - Embedded-system design and microcontroller programming.
@@ -809,7 +1349,15 @@ This project demonstrates the integration of several engineering disciplines:
 - Security threat modeling and engineering risk analysis.
 
 ### 13.2 Suggested Master-Level Extensions
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 To elevate the project beyond a basic demonstration, the next stage should include a documented experimental study rather than additional features alone.
 
 Recommended research questions include:
@@ -824,8 +1372,34 @@ Recommended research questions include:
 A strong academic submission should include a circuit diagram, implementation details, a justified design methodology, measured experimental results, error analysis, security considerations, and a discussion of limitations.
 
 ---
+<!-- Premium Grey, Emerald Green & Gold Divider -->
 
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 ## ═══ 14 · CONCLUSION ═══
+<!-- Premium Grey, Emerald Green & Gold Divider -->
+
+<div align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=rect&color=0:18211E,50:4F8067,100:C8A96B&height=3&section=header"
+    width="100%"
+    alt="Emerald and gold divider"
+  />
+</div>
 
 The RFID Smart Access Control System provides a practical foundation for studying contactless identification and embedded access-control logic. By combining an MFRC522 reader, Arduino UNO, RFID credentials, and a servo-actuated model door, the prototype demonstrates how a physical input can trigger a verified software decision and a corresponding electromechanical response.
 
