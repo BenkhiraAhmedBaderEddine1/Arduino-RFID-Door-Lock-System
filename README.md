@@ -27,52 +27,43 @@
 
 </div>
 
----
-
 ## ◈ 01 — PROJECT OVERVIEW
 
-The **RFID Smart Access Control System** is an embedded security prototype that demonstrates contactless identification and automated access control using an Arduino UNO and an MFRC522 RFID reader.
+The **RFID Smart Access Control System** is an embedded security prototype designed to demonstrate contactless identification and automated access control using an Arduino UNO and an MFRC522 RFID reader.
 
-When an RFID card or tag is presented, the reader retrieves its unique identifier (UID). The Arduino compares this identifier with a predefined list of authorized cards and determines whether access should be granted or denied.
+When an RFID card is presented, the reader retrieves its unique identifier (UID). The Arduino compares it with a predefined list of authorized cards. If the UID is authorized, an SG90 servo motor moves the demonstration lock to its unlocked position. Otherwise, access is denied and an optional buzzer can provide an alert.
 
-For an authorized card, an SG90 servo motor moves a demonstration locking mechanism to its unlocked position. For an unauthorized card, the lock remains in its locked state and an optional buzzer can signal the denied attempt.
-
-The project combines RFID communication, embedded C++, decision logic, and electromechanical actuation in a compact access-control system.
+The project combines RFID communication, embedded C++, authentication logic, and electromechanical actuation in a compact access-control prototype.
 
 ---
 
 ## ◈ 02 — SYSTEM ARCHITECTURE
 
+```mermaid
+flowchart TD
+    A["RFID CARD / TAG"] --> B["MFRC522 RFID READER"]
+    B -->|"SPI COMMUNICATION"| C["ARDUINO UNO R3"]
+    C --> D{"UID AUTHORIZED?"}
 
-flowchart TB
-    CARD["RFID CARD / TAG"]
-    READER["MFRC522 RFID READER"]
-    MCU["ARDUINO UNO R3"]
-    AUTH{"UID AUTHENTICATION"}
-    SERVO["SG90 SERVO MOTOR"]
-    LOCK["DOOR LOCK MECHANISM"]
-    BUZZER["BUZZER / STATUS LED"]
+    D -->|"YES"| E["ACCESS GRANTED"]
+    E --> F["SG90 SERVO MOTOR"]
+    F --> G["DOOR LOCK UNLOCKS"]
 
-CARD --> READER
-    READER -->|"SPI"| MCU
-    MCU --> AUTH
+    D -->|"NO"| H["ACCESS DENIED"]
+    H --> I["BUZZER ALERT"]
+    I --> J["LOCK REMAINS ENGAGED"]
 
-AUTH -->|"AUTHORIZED"| SERVO
-    SERVO --> LOCK
+    classDef hardware fill:#142D2B,stroke:#50CDB5,color:#FFFFFF,stroke-width:2px
+    classDef controller fill:#20272D,stroke:#D6B36A,color:#FFFFFF,stroke-width:2px
+    classDef decision fill:#3A2B17,stroke:#F0B45A,color:#FFFFFF,stroke-width:2px
+    classDef granted fill:#153A29,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px
+    classDef denied fill:#421F28,stroke:#FB7185,color:#FFFFFF,stroke-width:2px
 
-AUTH -->|"UNAUTHORIZED"| BUZZER
-
-classDef input fill:#102A2A,stroke:#58C9B5,color:#FFFFFF,stroke-width:2px
-    classDef controller fill:#182326,stroke:#C5A46D,color:#FFFFFF,stroke-width:2px
-    classDef decision fill:#3B2D18,stroke:#E5B567,color:#FFFFFF,stroke-width:2px
-    classDef success fill:#123B2A,stroke:#4ADE80,color:#FFFFFF
-    classDef denied fill:#3F1D28,stroke:#FB7185,color:#FFFFFF
-
-class CARD,READER input
-    class MCU controller
-    class AUTH decision
-    class SERVO,LOCK success
-    class BUZZER denied
+    class A,B,F hardware
+    class C controller
+    class D decision
+    class E,G granted
+    class H,I,J denied
 
 
 # Arduino-RFID-Door-Lock-System
