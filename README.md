@@ -232,6 +232,8 @@ flowchart TD
 
 ### 2.2 Operating Principle
 
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -277,6 +279,7 @@ If no match is found, the controller denies access and optionally activates a bu
 
 
 ## ═══ 03 · HARDWARE COMPONENTS ═══
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -514,6 +517,8 @@ Do not assume that the Arduino's onboard regulator or USB connection can safely 
   />
 </div>
 ### 5.1 Authentication Logic
+
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -550,6 +555,7 @@ thub.com/BenkhiraAhmedBaderEddine1
 </div>
 
 ### 5.2 Authentication Flowchart
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
@@ -595,7 +601,7 @@ flowchart TD
     class I,J,L good
     class M,N bad
 ```
-
+```
 ### 5.3 State Machine
 
 The system can be represented by five logical states:
@@ -985,7 +991,8 @@ flowchart TD
     J -->|"Yes"| L["Document Results"]
     L --> M["Prepare Final Demonstration"]
 
-    classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
+   
+classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
     classDef decision fill:#45351D,stroke:#E8C46D,color:#FFFFFF
     classDef success fill:#173D2B,stroke:#50D890,color:#FFFFFF
 
@@ -994,7 +1001,7 @@ flowchart TD
     class L,M success
 ```
 
----
+
 <!-- Premium Grey, Emerald Green & Gold Divider -->
 
 <div align="center">
