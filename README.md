@@ -230,3 +230,638 @@ The controller follows a deterministic decision process:
 9. If the UID is not authorized, keep the door locked and activate the denial indication.
 10. Stop processing the current card until it has been removed, then continue monitoring.
 thub.com/BenkhiraAhmedBaderEddine1
+
+
+### 5.2 Authentication Flowchart
+
+```mermaid
+flowchart TD
+    A([Power On]) --> B["Initialize Hardware"]
+    B --> C["Set Servo to Locked Position"]
+    C --> D["Wait for RFID Card"]
+    D --> E{"Card Detected?"}
+
+    E -->|"No"| D
+    E -->|"Yes"| F["Read UID"]
+    F --> G["Compare UID with Authorized List"]
+    G --> H{"Authorized?"}
+
+    H -->|"Yes"| I["Green LED / Grant Feedback"]
+    I --> J["Move Servo to Unlock Position"]
+    J --> K["Wait for Configured Delay"]
+    K --> L["Return Servo to Locked Position"]
+
+    H -->|"No"| M["Red LED / Optional Buzzer"]
+    M --> N["Keep Door Locked"]
+
+    L --> O["Wait Until Card Is Removed"]
+    N --> O
+    O --> D
+
+    classDef start fill:#18342D,stroke:#56CDA8,color:#FFFFFF
+    classDef action fill:#202B35,stroke:#77BDE8,color:#FFFFFF
+    classDef decision fill:#45351D,stroke:#E8C46D,color:#FFFFFF
+    classDef good fill:#173D2B,stroke:#50D890,color:#FFFFFF
+    classDef bad fill:#421F28,stroke:#FB7185,color:#FFFFFF
+
+    class A start
+    class B,C,D,F,G,K,O action
+    class E,H decision
+    class I,J,L good
+    class M,N bad
+```
+
+### 5.3 State Machine
+
+The system can be represented by five logical states:
+
+| State | Description | Expected Behavior |
+|---|---|---|
+| `LOCKED` | Default condition | Door remains locked |
+| `CARD_DETECTED` | RFID credential detected | Read the UID |
+| `AUTHENTICATING` | Authorization check | Compare the UID |
+| `ACCESS_GRANTED` | Authorized UID | Unlock temporarily |
+| `ACCESS_DENIED` | Unauthorized UID | Maintain locked condition |
+
+```mermaid
+stateDiagram-v2
+    [*] --> LOCKED
+    LOCKED --> CARD_DETECTED: Card presented
+    CARD_DETECTED --> AUTHENTICATING: UID read
+    AUTHENTICATING --> ACCESS_GRANTED: UID matches
+    AUTHENTICATING --> ACCESS_DENIED: UID does not match
+    ACCESS_GRANTED --> LOCKED: Access interval ends
+    ACCESS_DENIED --> LOCKED: Card removed
+```
+
+This state model separates identification, decision-making, and actuation. It also provides a foundation for adding timeouts, fault detection, and event logging.
+
+---
+
+## ═══ 06 · ARDUINO IMPLEMENTATION ═══
+
+### 6.1 Complete Baseline Sketch
+
+The following sketch implements the core prototype. Replace the example UID with the UID of a card you control, obtained from the Serial Monitor.
+
+Install the `MFRC522` library before compiling.
+
+```cpp
+#include <SPI.h>
+#include <MFRC522.h>
+#include <Servo.h>
+
+// ---------------- PIN CONFIGURATION ----------------
+
+constexpr byte RFID_SS_PIN = 10;
+constexpr byte RFID_RST_PIN = 9;
+
+constexpr byte SERVO_PIN = 6;
+constexpr byte GREEN_LED_PIN = 4;
+constexpr byte RED_LED_PIN = 5;
+constexpr byte BUZZER_PIN = 3;
+
+// ---------------- SERVO CONFIGURATION ---------------
+
+constexpr int LOCKED_ANGLE = 0;
+constexpr int UNLOCKED_ANGLE = 90;
+
+constexpr unsigned long UNLOCK_DURATION_MS = 5000;
+
+// ---------------- HARDWARE OBJECTS ------------------
+
+MFRC522 rfid(RFID_SS_PIN, RFID_RST_PIN);
+Servo doorServo;
+
+// Replace this example with your own card UID.
+// The number of bytes must match the actual card UID.
+
+const byte AUTHORIZED_UID[] = {
+    0xDE, 0xAD, 0xBE, 0xEF
+};
+
+constexpr byte AUTHORIZED_UID_LENGTH =
+    sizeof(AUTHORIZED_UID) / sizeof(AUTHORIZED_UID[0]);
+
+// ---------------- ACCESS CONTROL --------------------
+
+bool accessGranted(const MFRC522::Uid &uid) {
+    if (uid.size != AUTHORIZED_UID_LENGTH) {
+        return false;
+    }
+
+    for (byte i = 0; i < AUTHORIZED_UID_LENGTH; i++) {
+        if (uid.uidByte[i] != AUTHORIZED_UID[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void setLockedState() {
+    doorServo.write(LOCKED_ANGLE);
+
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, LOW);
+
+    Serial.println(F("SYSTEM: DOOR LOCKED"));
+}
+
+void indicateDenied() {
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, HIGH);
+
+    // Optional active buzzer notification.
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(250);
+    digitalWrite(BUZZER_PIN, LOW);
+
+    Serial.println(F("ACCESS DENIED"));
+    Serial.println(F("Door remains locked."));
+
+    delay(500);
+    digitalWrite(RED_LED_PIN, LOW);
+}
+
+void unlockDoor() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+
+    Serial.println(F("ACCESS GRANTED"));
+    Serial.println(F("Unlocking door..."));
+
+    doorServo.write(UNLOCKED_ANGLE);
+
+    delay(UNLOCK_DURATION_MS);
+
+    setLockedState();
+}
+
+// ---------------- UID DISPLAY -----------------------
+
+void printUID(const MFRC522::Uid &uid) {
+    Serial.print(F("Card UID: "));
+
+    for (byte i = 0; i < uid.size; i++) {
+        if (uid.uidByte[i] < 0x10) {
+            Serial.print('0');
+        }
+
+        Serial.print(uid.uidByte[i], HEX);
+
+        if (i < uid.size - 1) {
+            Serial.print(' ');
+        }
+    }
+
+    Serial.println();
+}
+
+// ---------------- SETUP -----------------------------
+
+void setup() {
+    Serial.begin(9600);
+
+    pinMode(GREEN_LED_PIN, OUTPUT);
+    pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(BUZZER_PIN, OUTPUT);
+
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(BUZZER_PIN, LOW);
+
+    doorServo.attach(SERVO_PIN);
+    doorServo.write(LOCKED_ANGLE);
+
+    SPI.begin();
+    rfid.PCD_Init();
+
+    delay(100);
+
+    Serial.println(F("----------------------------------"));
+    Serial.println(F(" RFID SMART ACCESS CONTROL SYSTEM"));
+    Serial.println(F("----------------------------------"));
+    Serial.println(F("Present an RFID card to the reader."));
+
+    rfid.PCD_DumpVersionToSerial();
+}
+
+// ---------------- MAIN LOOP -------------------------
+
+void loop() {
+    // Wait for a new card.
+    if (!rfid.PICC_IsNewCardPresent()) {
+        return;
+    }
+
+    // Read the card UID.
+    if (!rfid.PICC_ReadCardSerial()) {
+        return;
+    }
+
+    printUID(rfid.uid);
+
+    if (accessGranted(rfid.uid)) {
+        unlockDoor();
+    } else {
+        indicateDenied();
+    }
+
+    // Stop communication with the current card.
+    rfid.PICC_HaltA();
+    rfid.PCD_StopCrypto1();
+
+    // Wait until the card is removed so it is not
+    // immediately processed repeatedly.
+    while (rfid.PICC_IsNewCardPresent()) {
+        delay(50);
+    }
+
+    delay(150);
+}
+```
+
+### 6.2 Important Code Configuration
+
+**Authorized UID:** The sketch contains a demonstration UID, `DE AD BE EF`. This is a placeholder, not a real credential. Use the UID printed by your reader and confirm its byte length.
+
+**Servo angles:** The example assumes `0°` is locked and `90°` is unlocked. The correct angles depend on your mechanical arrangement. Adjust them carefully.
+
+**Buzzer:** The code assumes a compatible active buzzer that can be driven safely by the chosen interface. Use a driver transistor if the buzzer's electrical requirements exceed the GPIO capability.
+
+**Access duration:** `UNLOCK_DURATION_MS` defines how long the servo remains in the unlocked position.
+
+**Security limitation:** UID matching is suitable for demonstrating the workflow, but it is not strong authentication. Some RFID credentials can be copied or emulated. Do not use this implementation as the sole security mechanism for a real building.
+
+### 6.3 Suggested Serial Output
+
+An example of the expected diagnostic output is:
+
+```text
+----------------------------------
+ RFID SMART ACCESS CONTROL SYSTEM
+----------------------------------
+Present an RFID card to the reader.
+
+Card UID: 12 34 56 78
+ACCESS GRANTED
+Unlocking door...
+SYSTEM: DOOR LOCKED
+
+Card UID: AA BB CC DD
+ACCESS DENIED
+Door remains locked.
+```
+
+The UID values above are illustrative. Actual identifiers depend on the cards used.
+
+---
+
+## ═══ 07 · DEVELOPMENT WORKFLOW ═══
+
+### 7.1 Step-by-Step Construction
+
+**Phase 1 — Hardware Preparation**
+
+Collect the Arduino UNO, MFRC522 module, RFID cards, servo motor, breadboard, jumper wires, and optional indicators. Inspect the components and verify the reader's voltage requirements.
+
+**Phase 2 — Reader Integration**
+
+Connect the MFRC522 to the Arduino using the SPI pins. Upload a basic reader test sketch and verify that the module initializes correctly.
+
+**Phase 3 — Credential Identification**
+
+Use the Serial Monitor to display card UIDs. Record the UID of the test card you control and update the authorization array in the program.
+
+**Phase 4 — Actuator Testing**
+
+Connect the servo using an appropriate power arrangement. Test the locked and unlocked angles independently before combining it with the reader.
+
+**Phase 5 — Authentication Logic**
+
+Integrate the UID comparison function and test both authorized and unauthorized cards.
+
+**Phase 6 — User Feedback**
+
+Add the LEDs and optional buzzer. Confirm that the indications match the system's decision.
+
+**Phase 7 — Integrated Validation**
+
+Repeat tests with different cards, repeated presentations, power cycles, and different mechanical positions. Document the observed behavior and any failures.
+
+### 7.2 Recommended Build Sequence
+
+```mermaid
+flowchart TD
+    A["Define Requirements"] --> B["Select Hardware"]
+    B --> C["Wire RFID Reader"]
+    C --> D["Test SPI Communication"]
+    D --> E["Read and Record Test UID"]
+    E --> F["Test Servo Independently"]
+    F --> G["Implement Authorization Logic"]
+    G --> H["Integrate Indicators"]
+    H --> I["Run Functional Tests"]
+    I --> J{"Tests Pass?"}
+    J -->|"No"| K["Debug Hardware and Software"]
+    K --> I
+    J -->|"Yes"| L["Document Results"]
+    L --> M["Prepare Final Demonstration"]
+
+    classDef step fill:#202B35,stroke:#77BDE8,color:#FFFFFF
+    classDef decision fill:#45351D,stroke:#E8C46D,color:#FFFFFF
+    classDef success fill:#173D2B,stroke:#50D890,color:#FFFFFF
+
+    class A,B,C,D,E,F,G,H,I,K step
+    class J decision
+    class L,M success
+```
+
+---
+
+## ═══ 08 · TESTING AND VALIDATION ═══
+
+### 8.1 Functional Test Plan
+
+| Test ID | Test Scenario | Expected Result |
+|---|---|---|
+| T01 | Power on the system | Reader initializes; servo starts locked |
+| T02 | Present an authorized card | Access granted |
+| T03 | Present an unauthorized card | Access denied |
+| T04 | Present a card with a different UID length | Access denied |
+| T05 | Remove and present the same card again | A new scan is processed |
+| T06 | Disconnect the RFID reader | Fault is investigated; normal operation cannot be assumed |
+| T07 | Power-cycle the prototype | The configured authorization list remains available in firmware |
+| T08 | Move the servo under normal conditions | The actuator reaches its configured positions |
+| T09 | Repeat scans rapidly | No unintended repeated unlock should occur |
+| T10 | Test the power supply under servo load | Supply remains within component specifications |
+
+The expected results describe test objectives, not measured outcomes. Mark each test as passed or failed only after performing it on the actual hardware.
+
+### 8.2 Performance Metrics
+
+A master-level evaluation should measure the following:
+
+- **Authentication response time:** Time between presenting a card and receiving a decision.
+- **Actuation latency:** Time between authorization and the servo reaching its intended position.
+- **Recognition reliability:** Percentage of valid test presentations correctly recognized.
+- **False acceptance:** Number of unauthorized test presentations incorrectly granted access.
+- **False rejection:** Number of authorized test presentations incorrectly denied.
+- **Power consumption:** Current and voltage under idle, scanning, and servo-actuation conditions.
+- **Recovery behavior:** System behavior after resets, communication errors, and power interruptions.
+
+Useful metrics can be calculated as follows:
+
+\[
+\text{Recognition Rate} =
+\frac{\text{Correct Recognitions}}
+{\text{Total Valid Test Presentations}}
+\times 100\%
+\]
+
+\[
+\text{False Rejection Rate} =
+\frac{\text{Authorized Attempts Denied}}
+{\text{Total Authorized Attempts}}
+\times 100\%
+\]
+
+\[
+\text{False Acceptance Rate} =
+\frac{\text{Unauthorized Attempts Granted}}
+{\text{Total Unauthorized Attempts}}
+\times 100\%
+\]
+
+Report the test count, environment, card types, and measured values alongside each percentage. A small prototype test is not sufficient to establish the security of a deployed access-control system.
+
+### 8.3 Experimental Results Template
+
+Complete this table after testing the physical prototype.
+
+| Parameter | Measurement |
+|---|---|
+| Number of authorized test scans | To be measured |
+| Number of unauthorized test scans | To be measured |
+| Average authentication latency | To be measured |
+| Average servo actuation time | To be measured |
+| Recognition rate | To be calculated |
+| False acceptance observations | To be recorded |
+| False rejection observations | To be recorded |
+| Idle current | To be measured |
+| Servo operating current | To be measured |
+
+**Engineering note:** Do not report simulated, estimated, or expected values as experimental measurements.
+
+---
+
+## ═══ 09 · SECURITY ANALYSIS ═══
+
+### 9.1 Threat Model
+
+An access-control prototype should be evaluated against several possible failure and attack scenarios.
+
+| Threat | Baseline Exposure | Recommended Mitigation |
+|---|---|---|
+| Lost RFID card | Card may remain authorized | Revoke lost credentials |
+| UID copying or emulation | UID-only comparison may be bypassed | Use credentials with suitable cryptographic authentication |
+| Unauthorized firmware changes | Authorization logic may be altered | Restrict programming access and protect firmware |
+| Power interruption | Actuator may stop in an uncertain state | Define and verify safe mechanical behavior |
+| Servo obstruction | Commanded position may not be reached | Add position sensing or lock-state feedback |
+| Reader disconnection | Scanning may stop | Detect faults and keep access denied |
+| Repeated presentation | Repeated processing may occur | Add explicit state management and event handling |
+| Credential-list exposure | Firmware may reveal authorized UIDs | Use protected credential storage and stronger authentication |
+
+### 9.2 Security Limitations
+
+The baseline project uses an allowlist of card UIDs stored in firmware. It does not prove the identity of the cardholder and does not provide strong cryptographic authentication.
+
+A UID is an identifier, not a secret. Depending on the credential, it may be possible to reproduce or emulate it. The MFRC522 and compatible card combination should therefore be treated as an educational RFID platform, not as a complete security boundary.
+
+A production design would require a security assessment, suitable cryptographic credentials, protected key management, secure credential enrollment and revocation, fault monitoring, and a mechanically appropriate lock.
+
+### 9.3 Safety and Fail-Secure Considerations
+
+The servo's last commanded angle does not prove that a physical door is locked. A blocked, disconnected, or underpowered servo may fail to reach its target.
+
+For a real installation, the locking mechanism, power-loss behavior, emergency egress, fire regulations, and applicable building requirements must be evaluated independently.
+
+---
+
+## ═══ 10 · ADVANTAGES AND LIMITATIONS ═══
+
+### 10.1 Advantages
+
+- **Contactless interaction:** Users do not need to insert a mechanical key.
+- **Low implementation cost:** The prototype uses widely available educational components.
+- **Modular architecture:** The reader, controller, indicators, and actuator can be tested separately.
+- **Fast local decisions:** Authorization is evaluated on the microcontroller without a network dependency.
+- **Expandable software:** The code can be extended with credential management and event logging.
+- **Educational value:** The project combines electronics, embedded C++, communication protocols, and control logic.
+- **Demonstrable operation:** The card scan, decision, and servo response are easy to observe during a presentation.
+
+### 10.2 Limitations
+
+- **Weak baseline authentication:** UID comparison alone is not adequate for high-security applications.
+- **Limited credential management:** The demonstration uses a UID configured in firmware.
+- **No built-in audit database:** The baseline sketch does not retain a permanent access history.
+- **No remote monitoring:** Network connectivity is not included.
+- **Mechanical limitations:** The SG90 is designed for small hobby applications, not full-size security doors.
+- **Power sensitivity:** Servo startup and load current can affect system stability.
+- **Limited fault detection:** The baseline does not independently verify the physical lock position.
+- **Hardware dependence:** Reader performance and compatibility vary with cards, modules, wiring, and environmental conditions.
+
+### 10.3 Comparative Assessment
+
+| Feature | Baseline Prototype | Enhanced Design |
+|---|---|---|
+| Identification | RFID UID | Cryptographic credential authentication |
+| Authorization | Firmware allowlist | Managed credential database |
+| Event history | Serial output only | Persistent, access-controlled audit log |
+| Connectivity | Standalone | Optional network or local management interface |
+| Actuator feedback | Servo command | Independent lock-position sensor |
+| Fault monitoring | Basic | Explicit diagnostics and safe-state handling |
+| Credential revocation | Firmware update | Controlled enrollment and revocation workflow |
+
+---
+
+## ═══ 11 · FUTURE DEVELOPMENT ROADMAP ═══
+
+### Phase I — Core Reliability
+
+- Improve handling of repeated card scans.
+- Add clear initialization and fault messages.
+- Validate servo angles and power requirements.
+- Add systematic functional testing.
+
+### Phase II — Credential Management
+
+- Support multiple authorized credentials.
+- Add a controlled enrollment and revocation process.
+- Store configuration using an appropriate persistence mechanism.
+- Validate stored data and define behavior after corrupted or missing data.
+
+### Phase III — User Interface and Logging
+
+- Add an LCD or OLED display.
+- Display clear granted and denied messages.
+- Add a real-time clock if timestamps are required.
+- Record access events in appropriately protected storage.
+
+### Phase IV — Connected Access Control
+
+- Consider an ESP32-based version for network connectivity.
+- Add a local administrative interface with authentication.
+- Protect communications and management credentials.
+- Implement access logging and monitoring with suitable privacy controls.
+
+### Phase V — Security and Physical Integration
+
+- Evaluate cryptographic RFID credentials and key management.
+- Add lock-position sensing and actuator fault detection.
+- Test power-loss and restart behavior.
+- Assess the complete mechanical and electrical installation.
+- Conduct documented security and reliability testing.
+
+---
+
+## ═══ 12 · TROUBLESHOOTING GUIDE ═══
+
+| Problem | Possible Cause | Recommended Check |
+|---|---|---|
+| RFID reader not detected | Incorrect wiring or supply | Verify 3.3 V, GND, SPI pins, and reset connection |
+| UID is not displayed | Card incompatibility or failed communication | Test a compatible card and inspect Serial Monitor output |
+| Valid card is denied | UID mismatch or incorrect byte order | Compare the printed UID with the configured array |
+| Servo does not move | Incorrect signal pin or insufficient power | Verify D6 and the servo power arrangement |
+| Arduino resets during movement | Supply voltage drop or excessive current | Test with a suitable regulated servo supply |
+| LEDs do not illuminate | Incorrect polarity or wiring | Check LED orientation, resistor, and pin assignment |
+| Buzzer remains silent | Wrong buzzer type or wiring | Confirm the buzzer's electrical requirements |
+| Card is processed repeatedly | Card-removal handling is insufficient | Improve the state machine and reader event handling |
+| Reader works intermittently | Wiring, interference, or power instability | Shorten wiring and test a stable power source |
+
+---
+
+## ═══ 13 · REPOSITORY STRUCTURE ═══
+
+A recommended project layout is:
+
+```text
+RFID-Smart-Access-Control/
+│
+├── README.md
+│
+├── src/
+│   └── rfid_access_control.ino
+│
+├── docs/
+│   ├── system_architecture.md
+│   ├── test_plan.md
+│   └── security_analysis.md
+│
+├── hardware/
+│   ├── wiring_diagram.png
+│   └── bill_of_materials.csv
+│
+├── images/
+│   ├── prototype_overview.jpg
+│   ├── rfid_reader.jpg
+│   └── door_mechanism.jpg
+│
+└── LICENSE
+```
+
+Only include files and photographs that actually exist in the repository. Replace the example structure with the organization used by your implementation.
+
+---
+
+## ═══ 14 · ACADEMIC CONTRIBUTION ═══
+
+### 14.1 Engineering Concepts Demonstrated
+
+This project demonstrates the integration of several engineering disciplines:
+
+- Embedded-system design and microcontroller programming.
+- Digital communication using the SPI bus.
+- RFID-based identification and credential comparison.
+- Finite-state-machine modeling.
+- Electromechanical actuation using a servo motor.
+- Human-machine feedback through indicators and serial diagnostics.
+- Functional test design and quantitative performance evaluation.
+- Security threat modeling and engineering risk analysis.
+
+### 14.2 Suggested Master-Level Extensions
+
+To elevate the project beyond a basic demonstration, the next stage should include a documented experimental study rather than additional features alone.
+
+Recommended research questions include:
+
+1. How does card-reader distance affect recognition reliability?
+2. How does repeated scanning influence response time?
+3. What power-supply conditions cause servo-related resets?
+4. How does a state-machine implementation improve fault handling?
+5. What security improvements result from moving beyond UID-only authorization?
+6. How effectively can the system detect a mismatch between the commanded and actual lock state?
+
+A strong academic submission should include a circuit diagram, implementation details, a justified design methodology, measured experimental results, error analysis, security considerations, and a discussion of limitations.
+
+---
+
+## ═══ 15 · CONCLUSION ═══
+
+The RFID Smart Access Control System provides a practical foundation for studying contactless identification and embedded access-control logic. By combining an MFRC522 reader, Arduino UNO, RFID credentials, and a servo-actuated model door, the prototype demonstrates how a physical input can trigger a verified software decision and a corresponding electromechanical response.
+
+The project also illustrates an important engineering principle: a successful demonstration is not equivalent to a production-ready security system. Reliable deployment requires stronger credential authentication, careful power and mechanical design, fault detection, and systematic validation.
+
+The proposed development roadmap provides a path from a simple classroom prototype toward a more thoroughly tested, maintainable, and security-conscious access-control platform.
+
+---
+
+<div align="center">
+
+### ⟡ ENGINEERED FOR LEARNING. DESIGNED FOR EXTENSION. ⟡
+
+**RFID • EMBEDDED SYSTEMS • AUTOMATION • ACCESS CONTROL**
+
+*Academic Prototype — Arduino UNO + MFRC522 + SG90*
+
+</div>
