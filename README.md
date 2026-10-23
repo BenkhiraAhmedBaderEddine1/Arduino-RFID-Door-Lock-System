@@ -43,7 +43,7 @@ The project combines RFID communication, embedded C++, decision logic, and elect
 
 ## ◈ 02 — SYSTEM ARCHITECTURE
 
-```mermaid
+
 flowchart TB
     CARD["RFID CARD / TAG"]
     READER["MFRC522 RFID READER"]
@@ -53,22 +53,22 @@ flowchart TB
     LOCK["DOOR LOCK MECHANISM"]
     BUZZER["BUZZER / STATUS LED"]
 
-    CARD --> READER
+CARD --> READER
     READER -->|"SPI"| MCU
     MCU --> AUTH
 
-    AUTH -->|"AUTHORIZED"| SERVO
+AUTH -->|"AUTHORIZED"| SERVO
     SERVO --> LOCK
 
-    AUTH -->|"UNAUTHORIZED"| BUZZER
+AUTH -->|"UNAUTHORIZED"| BUZZER
 
-    classDef input fill:#102A2A,stroke:#58C9B5,color:#FFFFFF,stroke-width:2px
+classDef input fill:#102A2A,stroke:#58C9B5,color:#FFFFFF,stroke-width:2px
     classDef controller fill:#182326,stroke:#C5A46D,color:#FFFFFF,stroke-width:2px
     classDef decision fill:#3B2D18,stroke:#E5B567,color:#FFFFFF,stroke-width:2px
     classDef success fill:#123B2A,stroke:#4ADE80,color:#FFFFFF
     classDef denied fill:#3F1D28,stroke:#FB7185,color:#FFFFFF
 
-    class CARD,READER input
+class CARD,READER input
     class MCU controller
     class AUTH decision
     class SERVO,LOCK success
