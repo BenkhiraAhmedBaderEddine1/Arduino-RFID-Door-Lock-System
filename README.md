@@ -31,17 +31,49 @@
 
 </div>
 
-## ◈ 01 — PROJECT OVERVIEW
+## ═══ 01 · PROJECT OVERVIEW ═══
 
-The **RFID Smart Access Control System** is an embedded security prototype designed to demonstrate contactless identification and automated access control using an Arduino UNO and an MFRC522 RFID reader.
+### 1.1 Introduction
 
-When an RFID card is presented, the reader retrieves its unique identifier (UID). The Arduino compares it with a predefined list of authorized cards. If the UID is authorized, an SG90 servo motor moves the demonstration lock to its unlocked position. Otherwise, access is denied and an optional buzzer can provide an alert.
+Access control is an essential component of modern security systems used in residential buildings, laboratories, offices, industrial facilities, and restricted areas. Traditional mechanical keys provide a simple method of entry, but they can be lost, duplicated, or transferred between individuals without centralized authorization.
 
-The project combines RFID communication, embedded C++, authentication logic, and electromechanical actuation in a compact access-control prototype.
+The **RFID Smart Access Control System** introduces a contactless alternative based on Radio-Frequency Identification (RFID). The system enables a user to present an RFID card or tag to a reader installed near a door. A microcontroller reads the card identifier, evaluates it against a predefined authorization list, and determines whether access should be granted or denied.
+
+An authorized card activates a servo motor that simulates the unlocking mechanism. An unauthorized card leaves the system locked and may trigger an audible warning through a buzzer.
+
+The prototype is implemented using an Arduino UNO, an MFRC522 RFID reader, an SG90 servo motor, and optional status indicators. It combines hardware interfacing, embedded C++ programming, digital communication, state-based control, and experimental validation in one integrated engineering project.
+
+### 1.2 Project Objectives
+
+The primary objectives are:
+
+- Develop a contactless identification system using RFID technology.
+- Interface an MFRC522 reader with an Arduino UNO through SPI communication.
+- Implement an authorization algorithm based on registered card identifiers.
+- Control a servo motor to simulate door locking and unlocking.
+- Provide feedback for successful and unsuccessful authentication.
+- Evaluate response time, reliability, usability, and operational limitations.
+- Establish a foundation for future enhancements involving secure credentials, event logging, and network connectivity.
+
+### 1.3 Project Scope
+
+This implementation focuses on a low-cost, educational access-control prototype. The servo represents a small locking mechanism or model door rather than a full-size physical security lock.
+
+The baseline design operates locally without requiring an internet connection, cloud service, or external database.
 
 ---
 
-## ◈ 02 — SYSTEM ARCHITECTURE
+## ═══ 02 · SYSTEM ARCHITECTURE ═══
+
+### 2.1 High-Level Architecture
+
+The system consists of four principal functional layers:
+
+1. **Identification Layer:** The RFID card communicates with the MFRC522 reader.
+2. **Processing Layer:** The Arduino reads the card UID and performs the authorization check.
+3. **Actuation Layer:** The servo motor changes between locked and unlocked positions.
+4. **Feedback Layer:** LEDs and an optional buzzer communicate the authentication result.
+
 
 ```mermaid
 flowchart TD
@@ -71,44 +103,9 @@ flowchart TD
 ```
 ---
 
-# Arduino-RFID-Door-Lock-System
-An automated RFID-based physical security system engineered with Arduino UNO. Features a MFRC522 sensing interface for UID-validated entry and a servo-actuated locking mechanism for hands-free access control
-#  RFID Smart Access Control System
-
-
-      _________________________________________________
-      |                                                |
-      |          Arduino RFID Access Control           |
-      |________________________________________________|
-               |                                |
-      [ RFID SCANNER ]                  [ SERVO MOTOR ]
-      |    (MFRC522)   |                  |  (Lock Mech)  |
-      |   __________   |                  |      ____     |
-      |  |  ( (●) ) |  |       ____       |     /    \    |
-      |  |   SCAN   |  |------|    |------|    | STOP |   |
-      |  |   HERE   |  |      |UNO |      |     \____/    |
-      |  |__________|  |      |____|      |      _||_     |
-      |________________|        ||        |_____|____|____|
-                                ||
-                        [ BUZZER / LEDS ]
-                         (Status Indicators)
-
-          Key:   [*] Authorized Tag -> Servo Rotates (Open)
-                 [!] Unauthorized   -> Buzzer Alarms (Locked)
-
-
-                 
-
-
-
-
 
 ![image alt](https://github.com/BenkhiraAhmedBaderEddine1/Arduino-RFID-Door-Lock-System/blob/main/Capture%20d%E2%80%99%C3%A9cran%202026-04-16%20200028---.png?raw=true)
 
-##  Project Overview
-This project presents the design and implementation of a secure RFID-based access control system using Arduino UNO and MFRC522 RFID module.
-
-The system grants access only to authorized RFID cards and controls a servo motor to simulate a door locking mechanism.
 
 ----------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------
